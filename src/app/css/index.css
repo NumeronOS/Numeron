@@ -1,0 +1,508 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: none;
+  height: 100vh;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#map-wrapper {
+  width: 80vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+#map-container {
+  height: inherit;
+  overflow-y: scroll;
+  position: relative;
+}
+
+#map,
+/* #poem, */
+#original-map,
+#view-area,
+#back {
+  transition: 666ms ease-out;
+}
+
+/* #poem {
+  height: 10.5vh;
+  line-height: 10.5vh;
+} */
+
+#moving-block {
+  width: 2.5vw;
+  height: 2.5vw;
+  position: absolute;
+  z-index: 1;
+}
+
+.moving-block .hero-name {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.moving-block .xiaozhi {
+  width: 100%;
+  height: 100%;
+}
+
+.moving-block .xiaozhi img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.map-block {
+  overflow: hidden;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-bottom: none;
+}
+
+.map-block.ice,
+.map-block.sand,
+.map-block.green {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.map-block.tussock {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.map-block.ice {
+  background-image: url(../assets/img/bg/ice.png);
+}
+
+.map-block.sand {
+  background-image: url(../assets/img/bg/sand.png);
+}
+
+.map-block.green {
+  background-image: url(../assets/img/bg/green.jpg);
+}
+
+.map-block.tussock {
+  background-image: url(../assets/img/bg/green_1.jpg);
+}
+
+.xiaozhi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.xiaozhi img {
+  margin-top: 5px;
+  width: 1.2vw;
+
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.npc_man {
+  padding-left: 5px;
+}
+
+.original-map-block {
+  box-sizing: border-box;
+  border: 2px solid black;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-bottom: none;
+}
+
+.original-map-block:nth-child(odd) {
+  border-left: none;
+}
+
+.original-map-block:nth-child(even) {
+  border-left: none;
+}
+
+.original-map-block:nth-child(1) {
+  border-left: 2px solid black;
+}
+
+.original-map-row:last-child {
+  border-bottom: 2px solid black;
+}
+
+/* 右侧及底部 */
+/* p {
+  height: 11vh;
+  line-height: 11vh;
+  text-align: center;
+  font-family: 'ZCOOL XiaoWei', serif;
+  font-size: 2.5vw;
+} */
+
+progress {
+  transition: 1s ease-in-out;
+}
+
+.form-control {
+  margin: 1vh 0 3vh 0;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rule-border {
+  border-color: hsla(var(--bc) / var(--tw-border-opacity, 1));
+  border-width: 1px;
+  border-radius: var(--rounded-btn, 0.5rem);
+  --tw-border-opacity: 0.2;
+}
+
+#alert {
+  transition: 100ms ease-in-out;
+}
+
+#original-map,
+#map-container {
+  margin-top: 1vh;
+}
+
+/* 对话框 */
+.dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18em;
+  background-color: rgba(100, 100, 100, 0.5);
+  z-index: 1000;
+}
+
+.dialog.hidden {
+  display: none;
+}
+
+.dialog-content {
+  position: relative;
+  padding: 1.2em 1.4em;
+  margin: 0.5em 0;
+  line-height: 1.5;
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-content::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+}
+
+/* 用户消息的尖角 */
+.bg-primary.dialog-content::before {
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: hsl(var(--primary));
+}
+
+/* NPC消息的尖角 */
+.bg-muted.dialog-content::before {
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: hsl(var(--muted));
+}
+
+.dialog-content p {
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: initial;
+  text-align: initial;
+  font-size: initial;
+  font-family: initial;
+  overflow-x: auto;
+}
+
+.dialog-content p::-webkit-scrollbar {
+  display: block;
+  height: 10px;
+  background-color: #eee;
+}
+
+.dialog-content p::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[class^='dialog-action-'] {
+  flex: 1;
+  border: 1px solid;
+  padding: 0.4em 0.4em;
+  text-align: center;
+  cursor: pointer;
+}
+
+#character-nft .dropdown-option {
+}
+
+#character-nft .character-avatar {
+  padding-bottom: 100%;
+  position: relative;
+}
+
+#character-nft .character-avatar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#view-area,
+#character-nft,
+#mint-area {
+  margin: 0;
+}
+
+#back,
+#generate {
+  margin-bottom: 0;
+}
+
+#hero-name {
+  position: absolute;
+  top: -1.25vw;
+  left: -5vw;
+  width: 12.5vw;
+  text-align: center;
+  color: #3c4450;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.pvp-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18em;
+  background-color: rgba(100, 100, 100, 0.5);
+  z-index: 1000;
+}
+
+.pvp-modal.hidden {
+  display: none;
+}
+
+.pvp-modal-content {
+  border: 1px solid;
+  padding: 1.2em 0.9em;
+  font-size: 1.1em;
+}
+
+.pvp-modal-content img {
+  margin-top: 5px;
+  width: 5vw;
+
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.pvp-modal-content p {
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: initial;
+  text-align: initial;
+  font-size: initial;
+  font-family: initial;
+  overflow-x: auto;
+}
+
+.pvp-modal-content p::-webkit-scrollbar {
+  display: block;
+  height: 10px;
+  background-color: #eee;
+}
+
+.pvp-modal-content p::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+}
+
+.pvp-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[class^='pvp-modal-action-'] {
+  flex: 1;
+  border: 1px solid;
+  padding: 0.4em 0.4em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.other-player {
+  position: absolute;
+  width: 2.5vw;
+  height: 2.5vw;
+  z-index: 2;
+}
+
+.other-player .player-name {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.other-player .player-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.other-player .player-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.other-player .xiaozhi img {
+  filter: hue-rotate(180deg);
+}
+
+.chat-card-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.chat-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.chat-card-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chat-card-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.chat-card {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 600px;
+  height: 700px;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  border: 1px solid #e5e7eb;
+}
+
+.chat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.chat-card-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  color: #666;
+}
+
+.chat-card-close:hover {
+  color: #000;
+}
+
+.chat-card-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1.5rem;
+}
