@@ -26,6 +26,8 @@ pnpm run build
 write .env file (set sui private key and AI model key)
 
 pnpm run start --character=eliza-config/numeron.character.json
+
+pnpm start:client
 ```
 
 ### Start Numeron Project
