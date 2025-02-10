@@ -1,14 +1,18 @@
 # Numeron
 
-Numeron is an on-chain world built through the Dubhe Engine with the Monster Hunter template
+Numeron, an on-chain world built with [Dubhe Engine](https://github.com/0xobelisk/dubhe) on Sui Network, incorporates ElizaOS to create a genuine, intelligent, and interesting NPC system.
 
 ## Project Structure
 
-- [AI](./eliza-config) Chain thinker with elizaOS AI
+- [AI](./eliza-config) Chain thinker with ElizaOS AI
 - [Contracts](./contracts) Move Based Build Wiht Dubhe Engine Toolchains
 - [Numeron Code](./src) User Client Interface
 
----
+<p align="center">
+ <img src="assets/numeron_arch.png" alt="Numeron"/>
+    <br>
+    <em>Architecture of Numeron</em>
+</p>
 
 ## Quick Start
 
